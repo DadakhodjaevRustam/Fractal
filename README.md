@@ -1,16 +1,13 @@
-<<<<<<< Updated upstream
-# Fractal
-=======
 # Генератор фракталов
 
-![CI Status](https://github.com/DadakhodjaevRustam/Fractal/actions/workflows/cmake-single-platform.yml/badge.svg)
+![CI Status](https://github.com/DadakhodjaevRustam/Fractal/actions/workflows/build.yml/badge.svg)
 
 Программа для генерации различных фрактальных изображений с сохранением в форматах BMP и PGM.
 
 ## Примеры сгенерированных фракталов
 
 ### 1. Множество Мандельброта
-![Множество Мандельброта](images/examples/mandelbrot.b,)
+![Множество Мандельброта](images/examples/mandelbrot.png)
 
 *Область: [-2.5, 1.0] × [-1.0, 1.0], 256 итераций*
 
@@ -42,4 +39,3 @@ cmake .. && make
 
 # Запуск
 ./fractal_generator
->>>>>>> Stashed changes
