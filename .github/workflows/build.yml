@@ -1,6 +1,6 @@
 # This starter workflow is for a CMake project running on a single platform. There is a different starter workflow if you need cross-platform coverage.
 # See: https://github.com/actions/starter-workflows/blob/main/ci/cmake-multi-platform.yml
-name: CMake on a single platform
+name: Fractal Generator CI
 
 on:
   push:
@@ -31,9 +31,31 @@ jobs:
       # Build your program with the given configuration
       run: cmake --build ${{github.workspace}}/build --config ${{env.BUILD_TYPE}}
 
-    - name: Test
+    - name: Run fractal generator
       working-directory: ${{github.workspace}}/build
-      # Execute tests defined by the CMake configuration.
-      # See https://cmake.org/cmake/help/latest/manual/ctest.1.html for more detail
-      run: ctest -C ${{env.BUILD_TYPE}}
+      run: ./fractal_generator
+
+    - name: Check generated files
+      working-directory: ${{github.workspace}}/build
+      run: |
+        REQUIRED_FILES="mandelbrot.bmp julia.bmp sierpinski.bmp tree.bmp"
+        for file in $REQUIRED_FILES; do
+          if [ -f "$file" ] && [ -s "$file" ]; then
+            echo "$file создан успешно"
+          else
+            echo "$file отсутствует или пустой"
+            exit 1
+          fi
+        done
+        
+        echo "Все файлы успешно сгенерированы!"
+
+    - name: Upload images as artifacts
+      uses: actions/upload-artifact@v3
+      # Сохраняем сгенерированные изображения как артефакты
+      with:
+        name: fractal-images
+        path: ${{github.workspace}}/build/*.bmp
+        # Храним 7 дней вместо стандартных 90
+        retention-days: 7
 
