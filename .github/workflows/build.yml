@@ -51,7 +51,7 @@ jobs:
         echo "Все файлы успешно сгенерированы!"
 
     - name: Upload images as artifacts
-      uses: actions/upload-artifact@v3
+      uses: actions/upload-artifact@v4
       # Сохраняем сгенерированные изображения как артефакты
       with:
         name: fractal-images
